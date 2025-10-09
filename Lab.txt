@@ -1,0 +1,1326 @@
+🧮 1. Prime & Perfect Number Module
+
+🧩 Step 1: Create a module file → numberCheck.js
+// numberCheck.js
+
+// Function to check if a number is prime
+function isPrime(num) {
+  if (num <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+
+// Function to check if a number is perfect
+function isPerfect(num) {
+  let sum = 0;
+  for (let i = 1; i < num; i++) {
+    if (num % i === 0) sum += i;
+  }
+  return sum === num;
+}
+
+// Export the functions
+module.exports = { isPrime, isPerfect };
+
+⚙️ Step 2: Create main file → app.js
+// app.js
+const readline = require("readline");
+const { isPrime, isPerfect } = require("./numberCheck");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("Enter a number: ", (input) => {
+  const num = parseInt(input);
+
+  if (isNaN(num)) {
+    console.log("❌ Please enter a valid number!");
+  } else {
+    console.log(`\nResults for number: ${num}`);
+    console.log(`👉 Prime: ${isPrime(num) ? "Yes" : "No"}`);
+    console.log(`👉 Perfect: ${isPerfect(num) ? "Yes" : "No"}`);
+  }
+
+  rl.close();
+});
+
+
+
+
+
+⚪ 2.  calculate area and circumference of circle (Area & Circumference)
+🧩 Step 1: Create module file → circle.js
+// circle.js
+
+// Function to calculate area
+function area(radius) {
+  return Math.PI * radius * radius;
+}
+
+// Function to calculate circumference
+function circumference(radius) {
+  return 2 * Math.PI * radius;
+}
+
+// Export the functions
+module.exports = { area, circumference };
+
+⚙️ Step 2: Create main file → app.js
+// app.js
+const readline = require("readline");
+const { area, circumference } = require("./circle");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("Enter radius of circle: ", (input) => {
+  const r = parseFloat(input);
+
+  if (isNaN(r) || r <= 0) {
+    console.log("❌ Please enter a valid positive number for radius!");
+  } else {
+    console.log(`\nResults for Circle of radius ${r}`);
+    console.log(`👉 Area = ${area(r).toFixed(2)}`);
+    console.log(`👉 Circumference = ${circumference(r).toFixed(2)}`);
+  }
+
+  rl.close();
+});
+
+
+
+
+
+🧠 3. check whether a given number is prime or not and check whether a number is perfect or not
+
+🧩 Step 1: Create the module file → numberCheck.js
+// numberCheck.js
+
+// Function to check if number is prime
+function isPrime(num) {
+  if (num <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+
+// Function to check if number is perfect
+function isPerfect(num) {
+  let sum = 0;
+  for (let i = 1; i < num; i++) {
+    if (num % i === 0) sum += i;
+  }
+  return sum === num;
+}
+
+// Export both functions
+module.exports = { isPrime, isPerfect };
+
+⚙️ Step 2: Create the main file → app.js
+// app.js
+const readline = require("readline");
+const { isPrime, isPerfect } = require("./numberCheck");
+
+// Create interface for user input
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Accept number at runtime
+rl.question("Enter a number: ", (input) => {
+  const num = parseInt(input);
+
+  if (isNaN(num)) {
+    console.log("❌ Please enter a valid number!");
+  } else {
+    console.log(`\n✅ Checking number: ${num}`);
+    console.log(`👉 Prime Number: ${isPrime(num) ? "Yes" : "No"}`);
+    console.log(`👉 Perfect Number: ${isPerfect(num) ? "Yes" : "No"}`);
+  }
+
+  rl.close();
+});
+
+
+
+
+📘 4. calculate the factorial of a number, then use it in a main script.
+
+🧩 Step 1: Create the module file → factorial.js
+// factorial.js
+
+// Function to calculate factorial
+function factorial(n) {
+  if (n < 0) return "Factorial not defined for negative numbers";
+  if (n === 0 || n === 1) return 1;
+
+  let fact = 1;
+  for (let i = 2; i <= n; i++) {
+    fact *= i;
+  }
+  return fact;
+}
+
+// Export the function
+module.exports = factorial;
+
+⚙️ Step 2: Create the main file → app.js
+// app.js
+const readline = require("readline");
+const factorial = require("./factorial");
+
+// Create interface for runtime input
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("Enter a number to find its factorial: ", (input) => {
+  const num = parseInt(input);
+
+  if (isNaN(num)) {
+    console.log("❌ Please enter a valid number!");
+  } else {
+    console.log(`\n✅ The factorial of ${num} is: ${factorial(num)}`);
+  }
+
+  rl.close();
+});
+
+
+
+
+
+
+📄 6. Write a a node JS to read student.json file, parse it back into a JavaScript object, and display the contents on browser.
+
+🧩 Step 1: Create a JSON file — student.json
+{
+  "name": "Rachel",
+  "age": 21,
+  "course": "MSc Computer Science",
+  "marks": {
+    "Math": 85,
+    "Programming": 92,
+    "Networking": 88
+  }
+}
+
+⚙️ Step 2: Create main Node.js file — app.js
+// app.js
+const http = require("http");
+const fs = require("fs");
+
+http.createServer((req, res) => {
+  fs.readFile("student.json", "utf8", (err, data) => {
+    if (err) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Error reading student.json file");
+      return;
+    }
+
+    // Parse JSON data
+    const student = JSON.parse(data);
+
+    // Display JSON data on browser
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write("<h2>Student Details</h2>");
+    res.write(`<p><b>Name:</b> ${student.name}</p>`);
+    res.write(`<p><b>Age:</b> ${student.age}</p>`);
+    res.write(`<p><b>Course:</b> ${student.course}</p>`);
+    res.write("<h3>Marks:</h3>");
+    res.write("<ul>");
+    for (let subject in student.marks) {
+      res.write(`<li>${subject}: ${student.marks[subject]}</li>`);
+    }
+    res.write("</ul>");
+    res.end();
+  });
+}).listen(3000, () => {
+  console.log("Server running at http://localhost:3000");
+});
+
+
+
+📁 7. Write a node js application to perform the below operations on text file.
+Create, write, append, read, delete.
+
+🧩 File: fileOperations.js
+// fileOperations.js
+const fs = require("fs");
+const fileName = "example.txt";
+
+// 1️⃣ Create & Write to file
+fs.writeFile(fileName, "Hello, this is the first line.\n", (err) => {
+  if (err) throw err;
+  console.log("✅ File created and data written successfully.");
+
+  // 2️⃣ Append data to the same file
+  fs.appendFile(fileName, "This line is appended later.\n", (err) => {
+    if (err) throw err;
+    console.log("✅ Data appended successfully.");
+
+    // 3️⃣ Read the file content
+    fs.readFile(fileName, "utf8", (err, data) => {
+      if (err) throw err;
+      console.log("📄 File Content:\n" + data);
+
+      // 4️⃣ Delete the file
+      fs.unlink(fileName, (err) => {
+        if (err) throw err;
+        console.log("🗑️ File deleted successfully.");
+      });
+    });
+  });
+});
+
+
+
+
+
+
+👩‍🎓 8. Write a application to copy the contents of source.txt to destination.txt using streams.
+
+🧩File: copyFileStream.js
+// copyFileStream.js
+const fs = require("fs");
+
+// Create read and write streams
+const readStream = fs.createReadStream("source.txt");
+const writeStream = fs.createWriteStream("destination.txt");
+
+// Pipe the read stream into the write stream
+readStream.pipe(writeStream);
+
+// Handle events
+readStream.on("error", (err) => {
+  console.log("❌ Error reading file:", err.message);
+});
+
+writeStream.on("error", (err) => {
+  console.log("❌ Error writing file:", err.message);
+});
+
+writeStream.on("finish", () => {
+  console.log("✅ File copied successfully from source.txt → destination.txt");
+});
+
+▶️ How to Run
+
+Create a text file named source.txt in the same folder.
+Example content:
+
+Hello, this is the content of the source file.
+It will be copied to destination.txt using Node.js streams.
+
+
+Save the above code as copyFileStream.js.
+
+Open a terminal in that folder and run:
+
+node copyFileStream.js
+
+
+
+⚡ 9.Write a node js application to check whether a given name is file or directory. If it a directory, display the list of files and subdirectories.
+
+🧩 File: checkFileDir.js
+const fs = require("fs");
+const path = require("path");
+const readline = require("readline");
+
+// Create interface to accept input at runtime
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("Enter the path of file or directory: ", (inputPath) => {
+  const fullPath = path.resolve(inputPath);
+
+  fs.stat(fullPath, (err, stats) => {
+    if (err) {
+      console.log("❌ Path does not exist or cannot be accessed.");
+      rl.close();
+      return;
+    }
+
+    if (stats.isFile()) {
+      console.log(`📄 "${fullPath}" is a file.`);
+    } else if (stats.isDirectory()) {
+      console.log(`📁 "${fullPath}" is a directory.`);
+
+      // List files and subdirectories
+      fs.readdir(fullPath, (err, files) => {
+        if (err) {
+          console.log("❌ Unable to read directory contents.");
+        } else {
+          console.log("Contents:");
+          files.forEach((file) => {
+            const filePath = path.join(fullPath, file);
+            const fileStats = fs.statSync(filePath);
+            if (fileStats.isFile()) {
+              console.log(`  📄 File: ${file}`);
+            } else if (fileStats.isDirectory()) {
+              console.log(`  📁 Directory: ${file}`);
+            }
+          });
+        }
+      });
+    } else {
+      console.log("❌ Path is neither a file nor a directory.");
+    }
+
+    rl.close();
+  });
+});
+
+
+10. Write a program to add a new student record into students.json using the fs module.
+
+🧩 File: addStudent.js
+const fs = require("fs");
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Function to prompt user for student details
+function getStudentDetails() {
+  rl.question("Enter student name: ", (name) => {
+    rl.question("Enter student age: ", (ageInput) => {
+      const age = parseInt(ageInput);
+      rl.question("Enter student course: ", (course) => {
+        const newStudent = { name, age, course };
+
+        // Read existing students.json
+        fs.readFile("students.json", "utf8", (err, data) => {
+          let students = [];
+
+          if (!err) {
+            try {
+              students = JSON.parse(data);
+            } catch {
+              console.log("⚠️ students.json is empty or invalid. Creating new file.");
+            }
+          }
+
+          // Add new student
+          students.push(newStudent);
+
+          // Write back to students.json
+          fs.writeFile("students.json", JSON.stringify(students, null, 2), (err) => {
+            if (err) {
+              console.log("❌ Error writing to students.json:", err.message);
+            } else {
+              console.log("✅ Student record added successfully!");
+            }
+            rl.close();
+          });
+        });
+      });
+    });
+  });
+}
+
+getStudentDetails();
+
+▶️ How to Run
+
+Create a students.json file in the same folder. It can be empty ([]) or contain existing student records:
+
+[]
+
+
+Save the above code as addStudent.js.
+
+
+
+
+
+🌐 11. Write Node.js application which can handle events for user login and logout activities.
+
+🧩 File: userEvents.js
+const EventEmitter = require("events");
+
+// Create a class that extends EventEmitter
+class UserActivity extends EventEmitter {}
+
+// Instantiate the class
+const userActivity = new UserActivity();
+
+// Event listener for login
+userActivity.on("login", (username) => {
+  console.log(`✅ User "${username}" has logged in.`);
+});
+
+// Event listener for logout
+userActivity.on("logout", (username) => {
+  console.log(`⚠️ User "${username}" has logged out.`);
+});
+
+// Simulate user actions
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function promptAction() {
+  rl.question(
+    "Enter action (login/logout/exit) and username separated by space: ",
+    (input) => {
+      const [action, username] = input.split(" ");
+
+      if (!action || !username) {
+        console.log("❌ Invalid input. Example: login Rachel");
+      } else if (action === "login") {
+        userActivity.emit("login", username);
+      } else if (action === "logout") {
+        userActivity.emit("logout", username);
+      } else if (action === "exit") {
+        console.log("👋 Exiting program.");
+        rl.close();
+        return;
+      } else {
+        console.log("❌ Unknown action. Use login/logout/exit.");
+      }
+
+      promptAction(); // Repeat prompt
+    }
+  );
+}
+
+promptAction();
+
+
+
+
+
+🧾 12. Create a Node.js application where an event "orderPlaced" passes order ID and amount to its listener, which prints the details.
+
+🧩 File: orderEvent.js
+const EventEmitter = require("events");
+
+// Create a class that extends EventEmitter
+class OrderEmitter extends EventEmitter {}
+
+// Instantiate the class
+const orderEmitter = new OrderEmitter();
+
+// Listener for "orderPlaced" event
+orderEmitter.on("orderPlaced", (orderId, amount) => {
+  console.log(`✅ Order Placed!`);
+  console.log(`Order ID: ${orderId}`);
+  console.log(`Amount: $${amount}`);
+});
+
+// Simulate placing an order
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("Enter Order ID: ", (orderId) => {
+  rl.question("Enter Order Amount: ", (amountInput) => {
+    const amount = parseFloat(amountInput);
+
+    if (isNaN(amount)) {
+      console.log("❌ Invalid amount. Please enter a number.");
+    } else {
+      // Emit the "orderPlaced" event
+      orderEmitter.emit("orderPlaced", orderId, amount);
+    }
+
+    rl.close();
+  });
+});
+
+
+
+
+💼 13. Write a node js application to bind multiple listeners to a single event to show Annual cultural programs in your college and also demonstrate to remove the listeners from the event.
+
+🧩 File: culturalPrograms.js
+const EventEmitter = require("events");
+
+// Create an EventEmitter instance
+const eventEmitter = new EventEmitter();
+
+// Listener 1: Music Program
+function musicProgram() {
+  console.log("🎵 Music program will start at 5 PM.");
+}
+
+// Listener 2: Dance Program
+function danceProgram() {
+  console.log("💃 Dance program will start at 6 PM.");
+}
+
+// Listener 3: Drama Program
+function dramaProgram() {
+  console.log("🎭 Drama program will start at 7 PM.");
+}
+
+// Bind multiple listeners to the same event
+eventEmitter.on("annualCulturalProgram", musicProgram);
+eventEmitter.on("annualCulturalProgram", danceProgram);
+eventEmitter.on("annualCulturalProgram", dramaProgram);
+
+// Emit the event
+console.log("📢 Annual Cultural Program Schedule:");
+eventEmitter.emit("annualCulturalProgram");
+
+// Remove one listener
+eventEmitter.removeListener("annualCulturalProgram", danceProgram);
+
+console.log("\n📢 After removing Dance program listener:");
+eventEmitter.emit("annualCulturalProgram");
+
+
+
+
+🖼️ 14. Create a node js application to demonstrate routing using Express js as below:
+i) home 	ii) about    iii) contact us  
+
+🧩 Step 1: Initialize the project
+mkdir expressRoutingDemo
+cd expressRoutingDemo
+npm init -y
+npm install express
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const app = express();
+const port = 3000;
+
+// Home route
+app.get("/", (req, res) => {
+  res.send("<h2>🏠 Welcome to the Home Page</h2>");
+});
+
+// About route
+app.get("/about", (req, res) => {
+  res.send("<h2>ℹ️ About Us Page</h2><p>We are a college organizing annual events.</p>");
+});
+
+// Contact Us route
+app.get("/contact", (req, res) => {
+  res.send("<h2>📞 Contact Us Page</h2><p>Email: info@college.edu<br>Phone: +123456789</p>");
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+👔 15. Create a node js application to accept Student details(Rollno, name, Course, Fees) and display the details on Submit. (Use POST method)
+
+
+🧩 Step 1: Initialize the project
+mkdir studentFormApp
+cd studentFormApp
+npm init -y
+npm install express body-parser
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+const port = 3000;
+
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve the form at root
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Student Registration Form</h2>
+    <form action="/submit" method="POST">
+      <label>Roll No:</label><br>
+      <input type="text" name="rollno" required><br><br>
+
+      <label>Name:</label><br>
+      <input type="text" name="name" required><br><br>
+
+      <label>Course:</label><br>
+      <input type="text" name="course" required><br><br>
+
+      <label>Fees:</label><br>
+      <input type="number" name="fees" required><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+  `);
+});
+
+// Handle POST request
+app.post("/submit", (req, res) => {
+  const { rollno, name, course, fees } = req.body;
+  res.send(`
+    <h2>Student Details Submitted</h2>
+    <p><b>Roll No:</b> ${rollno}</p>
+    <p><b>Name:</b> ${name}</p>
+    <p><b>Course:</b> ${course}</p>
+    <p><b>Fees:</b> ${fees}</p>
+    <a href="/">Go Back</a>
+  `);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+📚 16. Create a Node JS application to update salary of employee by 10% of given emp id in the Employee table and display the records.
+
+🧩 Step 1: Setup MySQL Table
+CREATE DATABASE company;
+USE company;
+
+CREATE TABLE Employee (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+
+INSERT INTO Employee (emp_id, name, salary) VALUES
+(1, 'Alice', 50000),
+(2, 'Bob', 60000),
+(3, 'Charlie', 70000);
+
+🧩 Step 2: Initialize Node.js Project
+mkdir employeeApp
+cd employeeApp
+npm init -y
+npm install mysql readline
+
+🧩 Step 3: Create main file → updateSalary.js
+const mysql = require("mysql");
+const readline = require("readline");
+
+// Create readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// MySQL connection
+const conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "your_password",  // replace with your MySQL password
+  database: "company"
+});
+
+conn.connect((err) => {
+  if (err) throw err;
+  console.log("✅ Connected to MySQL database.");
+  
+  rl.question("Enter Employee ID to update salary: ", (empIdInput) => {
+    const empId = parseInt(empIdInput);
+
+    if (isNaN(empId)) {
+      console.log("❌ Invalid Employee ID.");
+      rl.close();
+      conn.end();
+      return;
+    }
+
+    // Update salary by 10%
+    const updateQuery = "UPDATE Employee SET salary = salary * 1.10 WHERE emp_id = ?";
+    conn.query(updateQuery, [empId], (err, result) => {
+      if (err) throw err;
+
+      if (result.affectedRows === 0) {
+        console.log(`❌ No employee found with ID ${empId}`);
+      } else {
+        console.log(`✅ Salary updated by 10% for employee ID ${empId}`);
+      }
+
+      // Display all employee records
+      conn.query("SELECT * FROM Employee", (err, rows) => {
+        if (err) throw err;
+        console.log("\n📄 Employee Records:");
+        console.table(rows);
+
+        rl.close();
+        conn.end();
+      });
+    });
+  });
+});
+
+
+📘 17. Create a node js application to upload image file
+
+🧩 Step 1: Initialize project
+mkdir imageUploadApp
+cd imageUploadApp
+npm init -y
+npm install express multer
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
+
+const app = express();
+const port = 3000;
+
+// Set storage engine
+const storage = multer.diskStorage({
+  destination: "./uploads", // folder to store uploaded files
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Initialize upload
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB limit
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb("❌ Error: Only images are allowed!");
+    }
+  }
+}).single("image");
+
+// Middleware to serve form
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Upload Image</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" required><br><br>
+      <input type="submit" value="Upload">
+    </form>
+  `);
+});
+
+// Handle upload
+app.post("/upload", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      if (!req.file) {
+        res.send("❌ No file selected!");
+      } else {
+        res.send(`✅ File uploaded successfully: <b>${req.file.filename}</b>`);
+      }
+    }
+  });
+});
+
+// Create uploads folder if not exists
+const fs = require("fs");
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+
+📄 18. Create a node js application to accept Employee details (eid,ename,designation,company) on HTML and display the details on Submit. (Use POST method)
+
+
+🧩 Step 1: Initialize project
+mkdir employeeFormApp
+cd employeeFormApp
+npm init -y
+npm install express body-parser
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+const port = 3000;
+
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve the HTML form
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Employee Registration Form</h2>
+    <form action="/submit" method="POST">
+      <label>Employee ID:</label><br>
+      <input type="text" name="eid" required><br><br>
+
+      <label>Name:</label><br>
+      <input type="text" name="ename" required><br><br>
+
+      <label>Designation:</label><br>
+      <input type="text" name="designation" required><br><br>
+
+      <label>Company:</label><br>
+      <input type="text" name="company" required><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+  `);
+});
+
+// Handle POST request
+app.post("/submit", (req, res) => {
+  const { eid, ename, designation, company } = req.body;
+  res.send(`
+    <h2>Employee Details Submitted</h2>
+    <p><b>Employee ID:</b> ${eid}</p>
+    <p><b>Name:</b> ${ename}</p>
+    <p><b>Designation:</b> ${designation}</p>
+    <p><b>Company:</b> ${company}</p>
+    <a href="/">Go Back</a>
+  `);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+🧑‍🎓 21. Create a node js application to upload text file.
+
+🧩 Step 1: Initialize Project
+mkdir textFileUploadApp
+cd textFileUploadApp
+npm init -y
+npm install express multer
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
+const app = express();
+const port = 3000;
+
+// Create uploads folder if not exists
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
+
+// Configure storage
+const storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Initialize upload
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2 MB limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === "text/plain") {
+      cb(null, true);
+    } else {
+      cb("❌ Error: Only text files are allowed!");
+    }
+  }
+}).single("textfile");
+
+// Serve HTML form
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Upload Text File</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="textfile" required><br><br>
+      <input type="submit" value="Upload">
+    </form>
+  `);
+});
+
+// Handle file upload
+app.post("/upload", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      if (!req.file) {
+        res.send("❌ No file selected!");
+      } else {
+        res.send(`✅ File uploaded successfully: <b>${req.file.filename}</b>`);
+      }
+    }
+  });
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+
+
+
+
+
+🧾 22. Write a Node.js application with functions to perform: 
+Insert a new  student record
+Fetch all student records
+Update marks of a specific student
+Delete a student record
+(Use MySQL)
+
+🧩 Step 1: Setup MySQL Table
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE Student (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO Student (rollno, name, course, marks) VALUES
+(1, 'Alice', 'MSc CS', 85),
+(2, 'Bob', 'BSc IT', 78),
+(3, 'Charlie', 'MSc CS', 92);
+
+🧩 Step 2: Initialize Node.js Project
+mkdir studentCRUDApp
+cd studentCRUDApp
+npm init -y
+npm install mysql readline
+
+🧩 Step 3: Create main file → studentApp.js
+const mysql = require("mysql");
+const readline = require("readline");
+
+// MySQL connection
+const conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "your_password", // replace with your MySQL password
+  database: "school"
+});
+
+conn.connect((err) => {
+  if (err) throw err;
+  console.log("✅ Connected to MySQL database.");
+  showMenu();
+});
+
+// Readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Menu
+function showMenu() {
+  console.log(`
+Choose an operation:
+1. Insert new student
+2. Fetch all students
+3. Update marks
+4. Delete student
+5. Exit
+  `);
+
+  rl.question("Enter choice: ", (choice) => {
+    switch (choice) {
+      case "1":
+        insertStudent();
+        break;
+      case "2":
+        fetchAllStudents();
+        break;
+      case "3":
+        updateMarks();
+        break;
+      case "4":
+        deleteStudent();
+        break;
+      case "5":
+        rl.close();
+        conn.end();
+        console.log("👋 Exiting...");
+        break;
+      default:
+        console.log("❌ Invalid choice");
+        showMenu();
+    }
+  });
+}
+
+// Insert new student
+function insertStudent() {
+  rl.question("Enter Roll No: ", (rollnoInput) => {
+    const rollno = parseInt(rollnoInput);
+    rl.question("Enter Name: ", (name) => {
+      rl.question("Enter Course: ", (course) => {
+        rl.question("Enter Marks: ", (marksInput) => {
+          const marks = parseInt(marksInput);
+          const query = "INSERT INTO Student (rollno, name, course, marks) VALUES (?, ?, ?, ?)";
+          conn.query(query, [rollno, name, course, marks], (err) => {
+            if (err) console.log("❌ Error:", err.message);
+            else console.log("✅ Student inserted successfully!");
+            showMenu();
+          });
+        });
+      });
+    });
+  });
+}
+
+// Fetch all students
+function fetchAllStudents() {
+  const query = "SELECT * FROM Student";
+  conn.query(query, (err, rows) => {
+    if (err) console.log("❌ Error:", err.message);
+    else console.table(rows);
+    showMenu();
+  });
+}
+
+// Update marks
+function updateMarks() {
+  rl.question("Enter Roll No of student to update: ", (rollnoInput) => {
+    const rollno = parseInt(rollnoInput);
+    rl.question("Enter new marks: ", (marksInput) => {
+      const marks = parseInt(marksInput);
+      const query = "UPDATE Student SET marks = ? WHERE rollno = ?";
+      conn.query(query, [marks, rollno], (err, result) => {
+        if (err) console.log("❌ Error:", err.message);
+        else if (result.affectedRows === 0) console.log("❌ Student not found.");
+        else console.log("✅ Marks updated successfully!");
+        showMenu();
+      });
+    });
+  });
+}
+
+// Delete student
+function deleteStudent() {
+  rl.question("Enter Roll No of student to delete: ", (rollnoInput) => {
+    const rollno = parseInt(rollnoInput);
+    const query = "DELETE FROM Student WHERE rollno = ?";
+    conn.query(query, [rollno], (err, result) => {
+      if (err) console.log("❌ Error:", err.message);
+      else if (result.affectedRows === 0) console.log("❌ Student not found.");
+      else console.log("✅ Student deleted successfully!");
+      showMenu();
+    });
+  });
+}
+
+
+🎓 24. Write a node JS application to fetch the records from Student table and display all records in HTML table. 
+(Use MySQL)
+
+🧩 Step 1: Setup MySQL Table
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE Student (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO Student (rollno, name, course, marks) VALUES
+(1, 'Alice', 'MSc CS', 85),
+(2, 'Bob', 'BSc IT', 78),
+(3, 'Charlie', 'MSc CS', 92);
+
+🧩 Step 2: Initialize Node.js Project
+mkdir fetchStudentHTML
+cd fetchStudentHTML
+npm init -y
+npm install express mysql
+
+🧩 Step 3: Create main file → app.js
+const express = require("express");
+const mysql = require("mysql");
+
+const app = express();
+const port = 3000;
+
+// MySQL connection
+const conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "your_password", // replace with your MySQL password
+  database: "school"
+});
+
+conn.connect((err) => {
+  if (err) throw err;
+  console.log("✅ Connected to MySQL database.");
+});
+
+// Route to display all students
+app.get("/", (req, res) => {
+  const query = "SELECT * FROM Student";
+  conn.query(query, (err, rows) => {
+    if (err) {
+      res.send("❌ Error fetching records: " + err.message);
+      return;
+    }
+
+    let html = `
+      <h2>Student Records</h2>
+      <table border="1" cellpadding="10" cellspacing="0">
+        <tr>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Course</th>
+          <th>Marks</th>
+        </tr>
+    `;
+
+    rows.forEach((student) => {
+      html += `
+        <tr>
+          <td>${student.rollno}</td>
+          <td>${student.name}</td>
+          <td>${student.course}</td>
+          <td>${student.marks}</td>
+        </tr>
+      `;
+    });
+
+    html += "</table>";
+    res.send(html);
+  });
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+
+
+25. Write a Node.js program to display all the records from the students table. (Use MySQL)
+
+🧩 Step 1: Setup MySQL Table
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE students (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO students (rollno, name, course, marks) VALUES
+(1, 'Alice', 'MSc CS', 85),
+(2, 'Bob', 'BSc IT', 78),
+(3, 'Charlie', 'MSc CS', 92);
+
+🧩 Step 2: Initialize Node.js Project
+mkdir displayStudents
+cd displayStudents
+npm init -y
+npm install mysql
+
+🧩 Step 3: Create main file → displayStudents.js
+const mysql = require("mysql");
+
+// Create MySQL connection
+const conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "your_password", // replace with your MySQL password
+  database: "school"
+});
+
+// Connect to MySQL
+conn.connect((err) => {
+  if (err) throw err;
+  console.log("✅ Connected to MySQL database.");
+
+  // Query to fetch all records
+  const query = "SELECT * FROM students";
+  conn.query(query, (err, results) => {
+    if (err) throw err;
+
+    console.log("📄 Student Records:");
+    console.table(results);
+
+    // Close connection
+    conn.end();
+  });
+});
+
+
+
+
+
+
+26. Create a node js application to display the list of the programs in your University, on Web page.
+
+🧩 Step 1: Initialize project
+mkdir universityPrograms
+cd universityPrograms
+npm init -y
+npm install express
+
+🧩 Step 2: Create main file → app.js
+const express = require("express");
+const app = express();
+const port = 3000;
+
+// Sample list of programs
+const programs = [
+  "BSc Computer Science",
+  "BSc Information Technology",
+  "MSc Computer Science",
+  "MBA",
+  "BBA",
+  "MCA",
+  "PhD in Computer Science"
+];
+
+// Route to display programs
+app.get("/", (req, res) => {
+  let html = `
+    <h2>📚 University Programs</h2>
+    <ul>
+  `;
+  programs.forEach((program) => {
+    html += `<li>${program}</li>`;
+  });
+  html += "</ul>";
+  res.send(html);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
